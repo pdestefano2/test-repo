@@ -1,0 +1,324 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Discovery API",
+    "termsOfService": "",
+    "contact": {
+      "name": "The EBSCO API Team"
+    },
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://apis.ebsco.com/discoveryapi"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Search Preview Resource"
+    }
+  ],
+  "paths": {
+    "/searchPreviews": {
+      "get": {
+        "tags": [
+          "Search Preview Resource"
+        ],
+        "description": "This resource allows you to run a search preview.",
+        "operationId": "Search-preview",		
+        "parameters": [
+          {
+            "name": "context",
+            "in": "query",
+            "description": "Search Context.  If a user launches your product from one of our EBSCO products, this identifier will be passed to you.",
+            "required": true,
+            "schema": {
+			   "type": string
+			},
+            "example": "uuid"
+          },
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Search Term. Keyword search that is applied to limit the results.",
+            "required": true,
+            "schema": {
+			   "type": string
+			},
+            "example": "search term",
+			"minimum": 1,
+			"maximum": 512
+          },
+		  {
+            "name": "lang",
+            "in": "query",
+            "description": "Language",
+            "default": "en-us",
+            "schema": {
+			   "type": string
+			}		  
+		  }		  
+        ],
+        "responses": {
+          "200": {
+            "description": "Search Preview Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/searchPreview"
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+			    "schema": {
+                   "$ref": "#/components/schemas/locale"
+				 },
+		        "default": "en-US",
+                "description": "The Content-Language entity header is used to describe the language(s) intended for the audience. It allows a user to differentiate according to the preferred language.",
+                "example": "en-US"		
+              }
+            }			
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+			"application/json": {
+			    "schema": {
+			       "$ref": "#/components/schemas/fieldValidationResponse"
+			    }
+			  }
+		    }
+          },
+          "401": {
+            "description": "Unauthorized",
+			"schema": {
+			   "type": "unit"
+			},
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {}
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {}
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {}
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]		
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "previewRecord": {
+        "type": "object",
+		"description": "A search preview response record.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "ID",
+            "format": "uuid",
+            "example": "123e4567-e89b-12d3-a456-426655440000",
+			"annotations": [
+			    "unique"
+			]
+          },
+          "title": {
+            "type": "string",
+            "description": "Title",
+            "example": "A Tale of Two Cities",
+			"required": true,
+			"minimum": 0,
+			"maximum": 512
+          },
+          "db": {
+		    "description": "Database Information",
+            "$ref": "#/components/schemas/dbAttributes",
+			"required": true
+          },		  
+          "attributes": {
+		    "description": "The attributes for the record.",
+            "$ref": "#/components/schemas/previewRecordAttributes",
+			"required": true
+          }
+        }
+      },
+	  "dbAttributes": {
+        "type": "object",
+		"description": "Search preview record attributes.",
+        "properties": {	  
+         "name": {
+            "type": "string",
+            "description": "Database Name",
+            "example": "Academic Search Complete",
+			"required": true
+          }	
+        }		  
+	  },
+      "previewRecordAttributes": {
+        "type": "object",
+		"description": "Search preview record attributes.",
+        "properties": {
+          "publicationDate": {
+            "type": "date-iso8601",
+            "description": "iso8610 Publication Date",
+            "format": "date",
+			"required": true,
+            "example": "20190301"
+          },
+          "contributors": {
+            "type": "array",
+			"description": "Preview Records Contributors",
+			"required": true,
+			"minimum": 0,
+            "maximum": 256,			
+            "items": {
+              "$ref": "#/components/schemas/previewRecordContributor"
+            }
+          },
+          "isPeerReviewed": {
+            "type": "boolean",
+            "description": "Field to indicate if title is peer reviewed.",
+            "example": false,
+			"required": false
+          },
+          "collectionTitle": {
+            "type": "string",
+            "description": "Collection Title.  The title of the collection that the record is a part of.  For example, if a record is an article, this field would contain the title of the journal.",
+            "example": "College Edition Books",
+			"required": false,
+			"minimum": 0,
+			"maximum": 512
+          }
+        }
+      },
+      "previewRecordContributor": {
+        "type": "object",
+		"description": "A contributor to a search preview record.",
+        "properties": {	  
+          "name": {
+            "type": "string",
+            "description": "Contributor Name",
+            "example": "Jon Doe",
+			"required": true,
+			"minimum": 0,
+			"maximum": 48
+          }
+        }
+      },
+      "searchPreview": {
+        "type": "object",
+		"description": "Search Preview Response",
+        "properties": {
+          "totalItems": {
+              "type": "integer",
+              "required": true,
+              "description": "Total Items",
+			  "example": 941838		
+          },		
+          "estimatdTotalItems": {
+              "type": "integer",
+              "required": true,
+              "description": "Estimated Total Items",
+			  "example": 941838		
+          },		
+          "items": {
+            "type": "array",
+			"description": "Search Preview Records",
+            "items": {
+              "$ref": "#/components/schemas/previewRecord",
+			  "maximum": 12,
+			  "required": true
+            }
+          }
+        }
+      },
+      "locale": {
+        "description": "An enumeration of allowed locales",
+		"type": "string",
+        "enum": [
+            "en",
+            "en-US",
+            "en-GB"
+        ]		
+      },
+      "fieldValidationResponse": {
+	    "description": "Field Validation Response Errors",
+		"type": "object",
+		"properties": {
+		   "status": {
+              "type": "integer",
+              "required": true,
+              "minimum": 100,
+              "maximum": 599,
+              "description": "Status",
+			  "example": 1
+           },	
+		   "message": {
+              "type": "string",
+              "minimum": 1,
+              "maximum": 512,
+              "required": true,
+              "description": "Error Message" ,
+			  "example": "The request could not be understood by server due to malformed syntax. The client SHOULD NOT repeat the request without modifications."
+		   },
+		   "errors": {
+			  "$ref": "#/components/schemas/fieldValidationError",
+              "maximum": 32,
+              "required": true,
+              "description": "A set of field validation errors"	   
+		   }
+		}
+      },
+      "fieldValidationError": {
+	     "description": "Error Description",
+		 "type": "object",
+		 "properties": {
+		    "path": {
+              "type": "string",
+              "minimum": 1,
+              "maximum": 256,
+              "required": true,
+              "description": "The object path of the field",
+              "example": "/searches/search.query"			
+			},
+			"message": {
+              "type": "string",
+              "minimum": 1,
+              "maximum": 512,
+              "required": true,
+              "description": "An error message.",
+              "example": "Query parameter 'query' exceeds parameter maximum length of 512 characters."			
+			}
+		 }
+      },	  
+      "type": {
+        "type": "string",
+        "description": "Type for record media.",
+        "enum": [
+        ]
+      }
+    },
+    "securitySchemes": {
+       "OAuth2": {
+         "type": "oauth2",
+         "flows": {
+           "authorizationCode": {
+             "authorizationUrl": "https://auth.ebsco.zone/api/dispatcher/oauth/authorize",
+             "tokenUrl": "https://auth.ebsco.zone/api/dispatcher/oauth/token",			 
+             "scopes": {}
+           }
+         }
+       }
+    }	
+  }
+}
