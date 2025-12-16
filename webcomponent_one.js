@@ -15,7 +15,7 @@ class APIKeyForm extends HTMLElement {
                     <label for="organization">Requesting Organization/Group Name *</label>
                     <input type="text" id="organization" name="organization" required>
 
-                    <label for="libraryname">Library Name *</label>
+                    <label for="libraryname">Library Name External*</label>
                     <input type="text" id="libraryname" name="libraryName" required>
 
                     <label for="librarystreetaddress">Library Street Address *</label>
