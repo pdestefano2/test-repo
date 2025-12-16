@@ -1,16 +1,5 @@
-:root {
-  --readme-test-color: #ff00ff;
-}
-
-/* Homepage containers */
-.rm-App,
-.rm-Home {
-  outline: 6px solid var(--readme-test-color) !important;
-}
-
-/* Unmissable visual proof */
 body::before {
-  content: "TEST: CSS loaded from GitHub";
+  content: "TEST: CSS loaded from GitHub v7";
   position: fixed;
   top: 0;
   left: 0;
