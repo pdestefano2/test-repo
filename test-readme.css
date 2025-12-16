@@ -22,3 +22,11 @@ body::before {
   text-align: center;
   z-index: 2147483647;
 }
+
+.ebscobtn {
+    background-color: #e3706c !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    border: none !important;
+}
+
