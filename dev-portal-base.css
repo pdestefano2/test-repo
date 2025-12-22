@@ -1,0 +1,11 @@
+:root {
+  --portal-css-loaded: true;
+}
+
+
+.ebscobtn {
+    background-color: #e3706c !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    border: none !important;
+}
