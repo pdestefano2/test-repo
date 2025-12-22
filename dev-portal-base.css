@@ -1,7 +1,6 @@
-:root {
-  --portal-css-loaded: true;
+.markdown-body {
+  --portal-css-build: "2025-12-22";
 }
-
 
 .ebscobtn {
     background-color: #e3706c !important;
