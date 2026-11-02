@@ -1,6 +1,6 @@
 
 body::before {
-  content: "TEST: CSS loaded from GitHub v9";
+  content: "TEST: CSS loaded from GitHub v10";
   position: fixed;
   bottom: 12px;
   right: 12px;
@@ -24,4 +24,32 @@ body::before {
 .landing-header .heading.heading .heading-text {
     font-weight: 400;
     font-size: 30px;
+}
+
+.landing-header {
+    width: 100% !important;
+    background-image: url(https://files.readme.io/fa17df9-homepage-banner.jpg);
+    background-position: 54% 100%;
+    background-repeat: initial;
+}
+
+.card-region {
+  /* background-color: #3e75cf; */
+  /*  margin-left: -24px; */
+  /*  margin-right: -24px;*/
+    margin-top: -35px;
+}
+
+.featured-region {
+    background-color: #e9ebec;
+/*   margin-left: -24px; */
+/*    margin-right: -24px; */
+    margin-top: -18px;
+}
+
+.container {
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 15px;
+    padding-right: 15px;
 }
