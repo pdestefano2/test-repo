@@ -1,6 +1,19 @@
+/* Body is the only scroll container */
+html, body { height: 100%; }
+body { overflow-y: auto; }
+
+/* Nuke inner scrollbars */
+#root, .App, .layout, .content, .rm-ContentMain, .rm-ReferenceMain, .rm-Article,
+[data-scroll], [data-scrollable], .scroll-container {
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Prevent scroll chaining/rubber-band into nested areas */
+body { overscroll-behavior: contain; }
 
 body::before {
-  content: "TEST: CSS loaded from GitHub v11";
+  content: "TEST: CSS loaded from GitHub v11a";
   position: fixed;
   bottom: 12px;
   right: 12px;
