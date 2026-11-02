@@ -1,6 +1,6 @@
 
 body::before {
-  content: "TEST: CSS loaded from GitHub v8";
+  content: "TEST: CSS loaded from GitHub v9";
   position: fixed;
   bottom: 12px;
   right: 12px;
@@ -21,3 +21,7 @@ body::before {
     border: none !important;
 }
 
+.landing-header .heading.heading .heading-text {
+    font-weight: 400;
+    font-size: 30px;
+}
