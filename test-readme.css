@@ -13,7 +13,7 @@ body { overflow-y: auto; }
 body { overscroll-behavior: contain; }
 
 body::before {
-  content: "TEST: CSS loaded from GitHub v11a";
+  content: "TEST: CSS loaded from GitHub v11b";
   position: fixed;
   bottom: 12px;
   right: 12px;
@@ -26,6 +26,28 @@ body::before {
   pointer-events: none;
 }
 
+
+/*** SANDBOX ONLY because only one project vs enterprise dashboard ***/
+/* change for readme refactored */
+[class^="LandingWrap"] {
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100% !important;
+}
+
+/* Overrides for the search bar kbd element */
+.rm-SearchToggle-shortcut {
+  background: transparent;
+  padding: 0;
+}
+
+.rm-Header-top {
+  	padding: .5rem 0 !important;
+		border-bottom: 1px solid #99acbb !important;
+}
+.rm-Header-bottom {
+  	padding: .3rem 0 !important;
+}
 
 .ebscobtn {
     background-color: #e3706c !important;
